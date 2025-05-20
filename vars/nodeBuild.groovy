@@ -1,6 +1,10 @@
 def call() {
+    tools {
+        nodejs 'nodejs'
+    }
+
     stage('Checkout') {
-        checkout scm
+        git 'https://github.com/arvindyadav-codezilla/nodeapp.git'
     }
 
     stage('Install Dependencies') {
@@ -9,9 +13,5 @@ def call() {
 
     stage('Run Tests') {
         sh 'npm test'
-    }
-
-    stage('Build') {
-        sh 'npm run build'
     }
 }
