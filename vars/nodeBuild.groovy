@@ -11,5 +11,9 @@ def call() {
         stage('Run Tests') {
             sh 'npm test'
         }
+         stage('Archive Artifacts') {
+            archiveArtifacts artifacts: '**/test-results/**/*.xml', allowEmptyArchive: true
+            junit '**/test-results/**/*.xml'
+        }
     }
 }
