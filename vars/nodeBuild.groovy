@@ -1,17 +1,15 @@
 def call() {
-    tools {
-        nodejs 'nodejs'
-    }
+    node {
+        stage('Checkout') {
+            git 'https://github.com/arvindyadav-codezilla/nodeapp.git'
+        }
 
-    stage('Checkout') {
-        git 'https://github.com/arvindyadav-codezilla/nodeapp.git'
-    }
+        stage('Install Dependencies') {
+            sh 'npm install'
+        }
 
-    stage('Install Dependencies') {
-        sh 'npm install'
-    }
-
-    stage('Run Tests') {
-        sh 'npm test'
+        stage('Run Tests') {
+            sh 'npm test'
+        }
     }
 }
