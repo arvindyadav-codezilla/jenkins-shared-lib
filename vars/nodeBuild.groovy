@@ -1,7 +1,11 @@
-def call() {
+def call(String repoUrl = 'https://github.com/arvindyadav-codezilla/nodeapp.git') {
     node {
+        tools {
+            nodejs 'nodejs'
+        }
+
         stage('Checkout') {
-            git 'https://github.com/arvindyadav-codezilla/nodeapp.git'
+            git repoUrl
         }
 
         stage('Install Dependencies') {
@@ -10,6 +14,14 @@ def call() {
 
         stage('Run Tests') {
             sh 'npm test'
+        }
+
+        stage('Build App') {
+            sh 'npm run build'
+        }
+
+        stage('Archive Build') {
+            archiveArtifacts artifacts: 'dist/**', fingerprint: true
         }
     }
 }
